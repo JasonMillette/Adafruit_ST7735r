@@ -349,8 +349,8 @@ class ST7735(object):
         buffered_image = Image.new('RGB', (132, 132))
         # Now, paste the actual 128x128 image on the larger image (buffer)
         # at the pixel address where it will actually show up on the screen.
-        # This address happens to be (2, 4).
-        buffered_image.paste(image, (2, 4))
+        # This address happens to be (2, 3).
+        buffered_image.paste(image, (2, 3))
         # Convert image to array of 16bit 565 RGB data bytes.
         # Unfortunate that this copy has to occur, but the SPI byte writing
         # function needs to take an array of bytes and PIL doesn't natively
