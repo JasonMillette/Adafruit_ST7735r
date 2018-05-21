@@ -34,8 +34,9 @@ SPI_CLOCK_HZ = 4000000 # 4 MHz
 
 
 # Constants for interacting with display registers.
-ST7735_TFTWIDTH    = 128
-ST7735_TFTHEIGHT   = 160
+# MODIFIED due to memory buffer height and width being 132x132.
+ST7735_TFTWIDTH    = 132
+ST7735_TFTHEIGHT   = 132
 
 ST7735_NOP         = 0x00
 ST7735_SWRESET     = 0x01
@@ -342,11 +343,19 @@ class ST7735(object):
             image = self.buffer
         # Set address bounds to entire display.
         self.set_window()
+        # Create a new, blank image var with 132x132 dimensions to satisfy
+        # the 132x132 memory buffer that the 128x128 image will be written
+        # to.
+        buffered_image = Image.new('RGB', (132, 132))
+        # Now, paste the actual 128x128 image on the larger image (buffer)
+        # at the pixel address where it will actually show up on the screen.
+        # This address happens to be (2, 4).
+        buffered_image.paste(image, (2, 4))
         # Convert image to array of 16bit 565 RGB data bytes.
         # Unfortunate that this copy has to occur, but the SPI byte writing
         # function needs to take an array of bytes and PIL doesn't natively
         # store images in 16-bit 565 RGB format.
-        pixelbytes = list(image_to_data(image))
+        pixelbytes = list(image_to_data(buffered_image))
         # Write data to hardware.
         self.data(pixelbytes)
 
