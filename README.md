@@ -1,9 +1,16 @@
-Python ST7735
+Adafruit ST7735R Library
 =======================
 
-Python library to control an ST7735 TFT LCD display.  Allows simple drawing on the display without installing a kernel module.
+Python library to control an [Adafruit 1.44" Color TFT LCD Display with MicroSD Card breakout - ST7735R](https://www.adafruit.com/product/2088)
+This library was adapted from cskau/Python_ST7735 which had already been adapted from
+adafruit/Adafruit_Python_ILI9341. Despite having dimensions of 128x128, the Adafruit display
+requires a 132x132 image to be written to the frame memory. This fork resolves issues users
+were having with multiple dead pixel rows by including an image buffer that fills in this extra
+space.
 
-Designed specifically to work with a ST7735 based 128x160 pixel TFT SPI display.
+Designed specifically to work with the Adafruit display listed above.
+
+No SD card functionality has been built in to this library.
 
 For all platforms (Raspberry Pi and Beaglebone Black) make sure you have the following dependencies:
 
@@ -36,5 +43,6 @@ See example of usage in the examples folder.
 Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!
 
 Modified from 'Adafruit Python ILI9341' written by Tony DiCola for Adafruit Industries.
+Modified in turn from 'Python ST7735' written by cskau.
 
 MIT license, all text above must be included in any redistribution
